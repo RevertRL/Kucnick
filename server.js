@@ -4,9 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var methodOverride = require('method-override');
+require('dotenv').config();
+require('./config/database');
 
 var indexRouter = require('./routes/index');
-var carsRouter = require('./routes/cars');
+var carRouter = require('./routes/cars');
 
 var app = express();
 
@@ -21,7 +23,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/cars', carsRouter);
+app.use('/cars', carRouter);
 app.use(methodOverride('_method'));
 
 // catch 404 and forward to error handler
