@@ -6,6 +6,7 @@ var logger = require('morgan');
 var methodOverride = require('method-override');
 require('dotenv').config();
 require('./config/database');
+var passport = require('passport');
 
 var indexRouter = require('./routes/index');
 var carRouter = require('./routes/cars');
@@ -22,6 +23,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method')); // Place this before your routes
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(function (req, res, next) {
+  res.locals.user = req.user;
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/cars', carRouter);
