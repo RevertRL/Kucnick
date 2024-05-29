@@ -1,5 +1,14 @@
-
 const Appointment = require('../models/appointment');
+
+// Render the form for creating a new appointment
+async function renderNewAppointmentForm(req, res) {
+    try {
+        res.render('appointments/new');
+    } catch (err) {
+        console.error('Error rendering new appointment form:', err);
+        res.status(500).send('Server Error');
+    }
+}
 
 // List all appointments
 async function getAllApp(req, res) {
@@ -107,6 +116,6 @@ module.exports = {
     getAppById,
     updateApp,
     deleteApp,
-    about
+    about,
+    renderNewAppointmentForm
 };
-

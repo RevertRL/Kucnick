@@ -10,6 +10,7 @@
                     <th>Time</th>
                     <th>Description</th>
                     <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,6 +22,11 @@
                         <td class="<%= appointment.status === 'Completed' ? 'text-green-500' : 'text-red-500' %>">
                             <%= appointment.status %>
                         </td>
+                        <td>
+                            <form action="/appointments/<%= appointment._id %>/delete" method="POST">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                 <% }) %>
             </tbody>
@@ -29,4 +35,3 @@
 </body>
 
 <%- include('../partials/footer') %>
-
