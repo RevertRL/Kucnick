@@ -2,11 +2,11 @@ const express = require('express');
 const router = express.Router();
 const carCtrl = require('../controllers/cars');
 
-router.post('/appointments', carCtrl.createApp);
-router.get('/appointments', carCtrl.getAllApp);
-router.get('/appointments/:id', carCtrl.getAppById);
-router.put('/appointments/:id', carCtrl.updateApp);
-router.delete('/appointments/:id', carCtrl.deleteApp);
+router.post('/new', carCtrl.createApp);
+router.get('/:id', carCtrl.getAllApp);
+router.get('/:id/show', carCtrl.getAppById);
+router.put('/:id/show', carCtrl.updateApp);
+router.delete('/:id', carCtrl.deleteApp);
 
 module.exports = router;
 
