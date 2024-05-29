@@ -16,3 +16,11 @@ body {
 a {
   color: #00B7FF;
 }
+nav {
+  height: 20px;
+}
+
+.google {
+  width: 20px;
+  height: auto;
+}
