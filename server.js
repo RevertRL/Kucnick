@@ -21,10 +21,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(methodOverride('_method')); // Place this before your routes
 
 app.use('/', indexRouter);
 app.use('/cars', carRouter);
-app.use(methodOverride('_method'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -43,3 +43,4 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
+

@@ -11,4 +11,3 @@ router.delete('/appointments/:id', carCtrl.deleteAppointment);
 module.exports = router;
 
 
-

@@ -15,12 +15,10 @@
             <tbody>
                 <% appointments.forEach(appointment => { %>
                     <tr>
-                        <td class="px-4 py-2"><%= appointment.appointmentDate.toLocaleDateString() %></td>
+                        <td class="px-4 py-2"><%= appointment.appointmentDate.toDateString() %></td>
                         <td class="px-4 py-2"><%= appointment.appointmentTime %></td>
                         <td class="px-4 py-2"><%= appointment.serviceType %></td>
-                        <td class="px-4 py-2 <%= appointment.status === 'Completed' ? 'text-green-500' : 'text-red-500' %>">
-                            <%= appointment.status %>
-                        </td>
+                        <td class="px-4 py-2"><%= appointment.status %></td>
                     </tr>
                 <% }) %>
             </tbody>

@@ -1,8 +1,19 @@
 const Appointment = require('../models/appointment');
 
+// List all appointments
+async function getAllApp(req, res) {
+    try {
+        const appointments = await Appointment.find();
+        res.render('appointments/index', { appointments });
+    } catch (err) {
+        console.error('Error fetching appointments:', err);
+        res.status(500).send('Server Error');
+    }
+}
+
 // Create a new appointment
-exports.createAppointment = async (req, res) => {
-    const { customerName, customerPhone, customerEmail, vehicleMake, vehicleModel, vehicleYear, vehicleLicensePlate, appointmentDate, appointmentTime, estimatedTime, serviceType } = req.body;
+async function createApp(req, res) {
+    const { customerName, customerPhone, customerEmail, vehicleMake, vehicleModel, vehicleYear, vehicleLicensePlate, appointmentDate, appointmentTime, serviceType } = req.body;
 
     const newAppointment = new Appointment({
         customerName,
@@ -14,49 +25,40 @@ exports.createAppointment = async (req, res) => {
         vehicleLicensePlate,
         appointmentDate,
         appointmentTime,
-        estimatedTime, // Add estimated time
         serviceType
     });
 
     try {
-        const savedAppointment = await newAppointment.save();
-        res.status(201).json(savedAppointment);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+        await newAppointment.save();
+        res.redirect('/appointments');
+    } catch (err) {
+        console.error('Error creating appointment:', err);
+        res.render('appointments/new', { errorMsg: err.message });
     }
-};
+}
 
-// Get all appointments
-exports.getAppointments = async (req, res) => {
-    try {
-        const appointments = await Appointment.find();
-        res.status(200).json(appointments);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-
-// Get a single appointment
-exports.getAppointmentById = async (req, res) => {
+// Get a single appointment by ID
+async function getAppById(req, res) {
     try {
         const appointment = await Appointment.findById(req.params.id);
         if (!appointment) {
-            return res.status(404).json({ message: 'Appointment not found' });
+            return res.status(404).send('Appointment not found');
         }
-        res.status(200).json(appointment);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.render('appointments/show', { appointment });
+    } catch (err) {
+        console.error('Error fetching appointment:', err);
+        res.status(500).send('Server Error');
     }
-};
+}
 
 // Update an appointment
-exports.updateAppointment = async (req, res) => {
-    const { customerName, customerPhone, customerEmail, vehicleMake, vehicleModel, vehicleYear, vehicleLicensePlate, appointmentDate, appointmentTime, estimatedTime, serviceType, status } = req.body;
+async function updateApp(req, res) {
+    const { customerName, customerPhone, customerEmail, vehicleMake, vehicleModel, vehicleYear, vehicleLicensePlate, appointmentDate, appointmentTime, serviceType, status } = req.body;
 
     try {
         const appointment = await Appointment.findById(req.params.id);
         if (!appointment) {
-            return res.status(404).json({ message: 'Appointment not found' });
+            return res.status(404).send('Appointment not found');
         }
 
         appointment.customerName = customerName;
@@ -68,26 +70,35 @@ exports.updateAppointment = async (req, res) => {
         appointment.vehicleLicensePlate = vehicleLicensePlate;
         appointment.appointmentDate = appointmentDate;
         appointment.appointmentTime = appointmentTime;
-        appointment.estimatedTime = estimatedTime; // Update estimated time
         appointment.serviceType = serviceType;
         appointment.status = status;
 
-        const updatedAppointment = await appointment.save();
-        res.status(200).json(updatedAppointment);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+        await appointment.save();
+        res.redirect(`/appointments/${appointment._id}`);
+    } catch (err) {
+        console.error('Error updating appointment:', err);
+        res.status(500).send('Server Error');
     }
-};
+}
 
 // Delete an appointment
-exports.deleteAppointment = async (req, res) => {
+async function deleteApp(req, res) {
     try {
         const appointment = await Appointment.findByIdAndDelete(req.params.id);
         if (!appointment) {
-            return res.status(404).json({ message: 'Appointment not found' });
+            return res.status(404).send('Appointment not found');
         }
-        res.status(200).json({ message: 'Appointment deleted' });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.redirect('/appointments');
+    } catch (err) {
+        console.error('Error deleting appointment:', err);
+        res.status(500).send('Server Error');
     }
+}
+
+module.exports = {
+    getAllApp,
+    createApp,
+    getAppById,
+    updateApp,
+    deleteApp
 };

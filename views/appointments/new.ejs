@@ -1,5 +1,57 @@
-<%- include('./partials/header') %>
+<%- include('../partials/header') %>
+
+<body class="bg-gray-100">
+    <div class="container mx-auto py-10">
+        <h1 class="text-3xl font-bold mb-8">Add New Appointment</h1>
+        <form action="/appointments" method="POST" class="max-w-md mx-auto">
+            <div class="mb-4">
+                <label for="customerName" class="block text-gray-700">Customer Name:</label>
+                <input type="text" id="customerName" name="customerName" required class="mt-1 px-4 py-2 w-full border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+            </div>
+            <div class="mb-4">
+                <label for="customerPhone" class="block text-gray-700">Customer Phone:</label>
+                <input type="text" id="customerPhone" name="customerPhone" required class="mt-1 px-4 py-2 w-full border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+            </div>
+            <div class="mb-4">
+                <label for="customerEmail" class="block text-gray-700">Customer Email:</label>
+                <input type="email" id="customerEmail" name="customerEmail" required class="mt-1 px-4 py-2 w-full border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+            </div>
+            <div class="mb-4">
+                <label for="vehicleMake" class="block text-gray-700">Vehicle Make:</label>
+                <input type="text" id="vehicleMake" name="vehicleMake" required class="mt-1 px-4 py-2 w-full border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+            </div>
+            <div class="mb-4">
+                <label for="vehicleModel" class="block text-gray-700">Vehicle Model:</label>
+                <input type="text" id="vehicleModel" name="vehicleModel" required class="mt-1 px-4 py-2 w-full border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+            </div>
+            <div class="mb-4">
+                <label for="vehicleYear" class="block text-gray-700">Vehicle Year:</label>
+                <input type="number" id="vehicleYear" name="vehicleYear" required class="mt-1 px-4 py-2 w-full border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+            </div>
+            <div class="mb-4">
+                <label for="vehicleLicensePlate" class="block text-gray-700">Vehicle License Plate:</label>
+                <input type="text" id="vehicleLicensePlate" name="vehicleLicensePlate" required class="mt-1 px-4 py-2 w-full border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+            </div>
+            <div class="mb-4">
+                <label for="appointmentDate" class="block text-gray-700">Appointment Date:</label>
+                <input type="date" id="appointmentDate" name="appointmentDate" required class="mt-1 px-4 py-2 w-full border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+            </div>
+            <div class="mb-4">
+                <label for="appointmentTime" class="block text-gray-700">Appointment Time:</label>
+                <input type="time" id="appointmentTime" name="appointmentTime" required class="mt-1 px-4 py-2 w-full border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+            </div>
+            <div class="mb-4">
+                <label for="serviceType" class="block text-gray-700">Service Type:</label>
+                <input type="text" id="serviceType" name="serviceType" required class="mt-1 px-4 py-2 w-full border
+                rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+            </div>
+            <div class="mt-6">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+<%- include('../partials/footer') %>
 
 
-
-<%- include('./partials/footer') %>
