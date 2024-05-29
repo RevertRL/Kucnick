@@ -15,10 +15,10 @@
             <tbody>
                 <% appointments.forEach(appointment => { %>
                     <tr>
-                        <td><%= appointment.appointmentDate.toLocaleDateString() %></td>
+                        <td><%= appointment.appointmentDate ? appointment.appointmentDate.toLocaleDateString() : '' %></td>
                         <td><%= appointment.appointmentTime %></td>
                         <td><%= appointment.serviceType %></td>
-                        <td><%= appointment.status === 'Completed' ? 'text-green-500' : 'text-red-500' %>">
+                        <td class="<%= appointment.status === 'Completed' ? 'text-green-500' : 'text-red-500' %>">
                             <%= appointment.status %>
                         </td>
                     </tr>
@@ -29,3 +29,4 @@
 </body>
 
 <%- include('../partials/footer') %>
+
