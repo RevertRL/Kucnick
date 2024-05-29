@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 const { authorize, createEvent } = require('../config/googleCalendar');
 
@@ -35,3 +36,5 @@ appointmentsSchema.post('save', async function (doc, next) {
 const Appointment = mongoose.model('Appointment', appointmentsSchema);
 
 module.exports = Appointment;
+
+

@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 
 
@@ -80,3 +81,5 @@ appointmentsSchema.pre('save', function (next) {
 const Appointment = mongoose.model('Appointment', appointmentsSchema);
 
 module.exports = Appointment;
+
+

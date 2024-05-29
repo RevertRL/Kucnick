@@ -1,10 +1,11 @@
+
 const Appointment = require('../models/appointment');
 
 // List all appointments
 async function getAllApp(req, res) {
     try {
         const appointments = await Appointment.find();
-        res.render('cars/index', { appointments });
+        res.render('appointments/index', { appointments });
     } catch (err) {
         console.error('Error fetching appointments:', err);
         res.status(500).send('Server Error');
@@ -30,10 +31,10 @@ async function createApp(req, res) {
 
     try {
         await newAppointment.save();
-        res.redirect('/');
+        res.redirect('/appointments');
     } catch (err) {
         console.error('Error creating appointment:', err);
-        res.render('cars/new', { errorMsg: err.message });
+        res.render('appointments/new', { errorMsg: err.message });
     }
 }
 
@@ -44,7 +45,7 @@ async function getAppById(req, res) {
         if (!appointment) {
             return res.status(404).send('Appointment not found');
         }
-        res.render('cars/show', { appointment });
+        res.render('appointments/show', { appointment });
     } catch (err) {
         console.error('Error fetching appointment:', err);
         res.status(500).send('Server Error');
@@ -74,7 +75,7 @@ async function updateApp(req, res) {
         appointment.status = status;
 
         await appointment.save();
-        res.redirect(`/cars/${appointment._id}`);
+        res.redirect(`/appointments/${appointment._id}`);
     } catch (err) {
         console.error('Error updating appointment:', err);
         res.status(500).send('Server Error');
@@ -88,11 +89,16 @@ async function deleteApp(req, res) {
         if (!appointment) {
             return res.status(404).send('Appointment not found');
         }
-        res.redirect('/');
+        res.redirect('/appointments');
     } catch (err) {
         console.error('Error deleting appointment:', err);
         res.status(500).send('Server Error');
     }
+}
+
+// Render About Page
+async function about(req, res) {
+    res.render('appointments/about');
 }
 
 module.exports = {
@@ -100,5 +106,7 @@ module.exports = {
     createApp,
     getAppById,
     updateApp,
-    deleteApp
+    deleteApp,
+    about
 };
+
