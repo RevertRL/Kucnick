@@ -14,7 +14,7 @@ async function renderNewAppointmentForm(req, res) {
 async function getAllApp(req, res) {
     try {
         const appointments = await Appointment.find();
-        res.render('appointments/index', { appointments });
+        res.render('appointments/show', { appointments });
     } catch (err) {
         console.error('Error fetching appointments:', err);
         res.status(500).send('Server Error');
@@ -54,7 +54,7 @@ async function getAppById(req, res) {
         if (!appointment) {
             return res.status(404).send('Appointment not found');
         }
-        res.render('appointments/show', { appointment });
+        res.render('appointments/index', { appointment });
     } catch (err) {
         console.error('Error fetching appointment:', err);
         res.status(500).send('Server Error');
