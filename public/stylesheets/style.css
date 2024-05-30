@@ -14,10 +14,20 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: red;
+  outline: 2px black;
+ 
 }
+
+p {
+  color: red;
+  outline: 4px black;
+}
+
 nav {
   height: 20px;
+  color: red;
+  outline: 2px black;
 }
 
 .google {

@@ -3,10 +3,38 @@
 <body>
     <div class="container">
         <h1>Appointment Details</h1>
-        <p><strong>Date:</strong> <%= appointment.appointmentDate ? appointment.appointmentDate.toLocaleDateString() : '' %></p>
-        <p><strong>Time:</strong> <%= appointment.appointmentTime %></p>
-        <p><strong>Service Type:</strong> <%= appointment.serviceType %></p>
-        <p><strong>Status:</strong> <%= appointment.status %></p>
+        <form action="/appointments/<%= appointment._id %>" method="POST"> <!-- Correct form action -->
+            <!-- Date -->
+            <div class="form-group">
+                <label for="appointmentDate">Date:</label>
+                <input type="date" id="appointmentDate" name="appointmentDate" value="<%= appointment.appointmentDate ? appointment.appointmentDate.toISOString().split('T')[0] : '' %>" required>
+            </div>
+
+            <!-- Time -->
+            <div class="form-group">
+                <label for="appointmentTime">Time:</label>
+                <input type="time" id="appointmentTime" name="appointmentTime" value="<%= appointment.appointmentTime %>" required>
+            </div>
+
+            <!-- Service Type -->
+            <div class="form-group">
+                <label for="serviceType">Service Type:</label>
+                <input type="text" id="serviceType" name="serviceType" value="<%= appointment.serviceType %>" required>
+            </div>
+
+            <!-- Status -->
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select id="status" name="status" required>
+                    <option value="Scheduled" <%= appointment.status === 'Scheduled' ? 'selected' : '' %>>Scheduled</option>
+                    <option value="In Progress" <%= appointment.status === 'In Progress' ? 'selected' : '' %>>In Progress</option>
+                    <option value="Completed" <%= appointment.status === 'Completed' ? 'selected' : '' %>>Completed</option>
+                    <option value="Cancelled" <%= appointment.status === 'Cancelled' ? 'selected' : '' %>>Cancelled</option>
+                </select>
+            </div>
+            <input type="hidden" name="_method" value="PUT">
+            <button type="submit">Update Appointment</button>
+        </form>
         <a href="/appointments">Back to Appointments</a>
     </div>
 </body>

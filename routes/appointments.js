@@ -4,11 +4,12 @@ const carCtrl = require('../controllers/appointments');
 
 router.get('/', carCtrl.index);
 router.get('/about', carCtrl.about);
-router.post('/', carCtrl.createApp); // POST to /appointments to create new
-router.get('/new', (req, res) => res.render('appointments/new')); // Render form to create new
+router.post('/', carCtrl.createApp);
+router.get('/new', (req, res) => res.render('appointments/new'));
 router.get('/:id', carCtrl.show);
-router.put('/:id/update', carCtrl.updateApp);
-router.post('/:id', carCtrl.deleteApp);
+router.put('/:id', carCtrl.updateApp); // Update route changed to handle PUT requests
+router.delete('/:id', carCtrl.deleteApp); // DELETE route added
+router.post('/:id', carCtrl.deleteApp); // DELETE route changed to handle POST requests
 
 module.exports = router;
 

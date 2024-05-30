@@ -23,11 +23,9 @@
                             <%= appointment.status %>
                         </td>
                         <td>
+                            <a href="/appointments/<%= appointment._id %>">Details</a>
                             <form action="/appointments/<%= appointment._id %>?_method=DELETE" method="POST">
                                 <button type="submit">Delete</button>
-                            </form>
-                            <form action="/appointments/<%= appointment._id %>/edit" method="GET">
-                                <button type="submit">Update</button>
                             </form>
                         </td>
                     </tr>
