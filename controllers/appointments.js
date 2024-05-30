@@ -54,33 +54,20 @@ async function show(req, res) {
 
 // Update an appointment
 async function updateApp(req, res) {
-    const { customerName, customerPhone, customerEmail, vehicleMake, vehicleModel, vehicleYear, vehicleLicensePlate, appointmentDate, appointmentTime, serviceType, status } = req.body;
-
     try {
-        const appointment = await Appointment.findById(req.params.id);
+        const appointment = await Appointment.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+
         if (!appointment) {
             return res.status(404).send('Appointment not found');
         }
 
-        appointment.customerName = customerName;
-        appointment.customerPhone = customerPhone;
-        appointment.customerEmail = customerEmail;
-        appointment.vehicleMake = vehicleMake;
-        appointment.vehicleModel = vehicleModel;
-        appointment.vehicleYear = vehicleYear;
-        appointment.vehicleLicensePlate = vehicleLicensePlate;
-        appointment.appointmentDate = appointmentDate;
-        appointment.appointmentTime = appointmentTime;
-        appointment.serviceType = serviceType;
-        appointment.status = status;
-
-        await appointment.save();
         res.redirect(`/appointments/${appointment._id}`);
     } catch (err) {
         console.error('Error updating appointment:', err);
         res.status(500).send('Server Error');
     }
 }
+
 
 // Delete an appointment
 async function deleteApp(req, res) {
