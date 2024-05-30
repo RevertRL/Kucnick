@@ -3,7 +3,7 @@
 <body>
     <div class="container">
         <h1>Appointment Details</h1>
-        <form action="/appointments/<%= appointment._id %>" method="POST"> <!-- Correct form action -->
+        <form action="/appointments/<%= appointment._id %>?_method=PUT" method="POST"> <!-- Correct form action -->
             <!-- Date -->
             <div class="form-group">
                 <label for="appointmentDate">Date:</label>

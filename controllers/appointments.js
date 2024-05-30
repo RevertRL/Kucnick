@@ -55,7 +55,7 @@ async function show(req, res) {
 // Update an appointment
 async function updateApp(req, res) {
     try {
-        const appointment = await Appointment.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+        const appointment = await Appointment.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
         if (!appointment) {
             return res.status(404).send('Appointment not found');
