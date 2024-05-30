@@ -1,20 +1,10 @@
 const Appointment = require('../models/appointment');
 
-// Render the form for creating a new appointment
-async function renderNewAppointmentForm(req, res) {
-    try {
-        res.render('appointments/new');
-    } catch (err) {
-        console.error('Error rendering new appointment form:', err);
-        res.status(500).send('Server Error');
-    }
-}
-
 // List all appointments
-async function getAllApp(req, res) {
+async function index(req, res) {
     try {
         const appointments = await Appointment.find();
-        res.render('appointments/show', { appointments });
+        res.render('appointments/index', { appointments });
     } catch (err) {
         console.error('Error fetching appointments:', err);
         res.status(500).send('Server Error');
@@ -48,18 +38,19 @@ async function createApp(req, res) {
 }
 
 // Get a single appointment by ID
-async function getAppById(req, res) {
+async function show(req, res) {
     try {
         const appointment = await Appointment.findById(req.params.id);
         if (!appointment) {
             return res.status(404).send('Appointment not found');
         }
-        res.render('appointments/index', { appointment });
+        res.render('appointments/show', { appointment });
     } catch (err) {
         console.error('Error fetching appointment:', err);
         res.status(500).send('Server Error');
     }
 }
+
 
 // Update an appointment
 async function updateApp(req, res) {
@@ -93,17 +84,19 @@ async function updateApp(req, res) {
 
 // Delete an appointment
 async function deleteApp(req, res) {
+    const appointmentId = req.params.id;
+
     try {
-        const appointment = await Appointment.findByIdAndDelete(req.params.id);
+        const appointment = await Appointment.findByIdAndDelete(appointmentId);
         if (!appointment) {
             return res.status(404).send('Appointment not found');
         }
         res.redirect('/appointments');
-    } catch (err) {
-        console.error('Error deleting appointment:', err);
-        res.status(500).send('Server Error');
+    } catch (error) {
+        console.error('Error deleting appointment:', error);
+        res.status(500).json({ error: 'Unable to delete appointment' });
     }
-}
+};
 
 // Render About Page
 async function about(req, res) {
@@ -111,11 +104,11 @@ async function about(req, res) {
 }
 
 module.exports = {
-    getAllApp,
+    index,
     createApp,
-    getAppById,
+    show,
     updateApp,
     deleteApp,
     about,
-    renderNewAppointmentForm
 };
+

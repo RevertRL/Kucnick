@@ -2,7 +2,7 @@
 
 <body>
     <div class="container">
-        <h1>Appointments Calendar</h1>
+        <h1>Appointment Details</h1>
         <table>
             <thead>
                 <tr>
@@ -10,25 +10,15 @@
                     <th>Time</th>
                     <th>Description</th>
                     <th>Status</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                <% appointments.forEach(appointment => { %>
-                    <tr>
-                        <td><%= appointment.appointmentDate ? appointment.appointmentDate.toLocaleDateString() : '' %></td>
-                        <td><%= appointment.appointmentTime %></td>
-                        <td><%= appointment.serviceType %></td>
-                        <td class="<%= appointment.status === 'Completed' ? 'text-green-500' : 'text-red-500' %>">
-                            <%= appointment.status %>
-                        </td>
-                        <td>
-                            <form action="/appointments/<%= appointment._id %>/delete" method="POST">
-                                <button type="submit">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                <% }) %>
+                <tr>
+                    <td><%= appointment.appointmentDate ? appointment.appointmentDate.toLocaleDateString() : '' %></td>
+                    <td><%= appointment.appointmentTime %></td>
+                    <td><%= appointment.serviceType %></td>
+                    <td><%= appointment.status %></td>
+                </tr>
             </tbody>
         </table>
     </div>

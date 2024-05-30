@@ -1,10 +1,8 @@
-
 <%- include('../partials/header') %>
-
 
 <body>
     <div class="container">
-        <h1>My Appointments</h1>
+        <h1>Appointments Calendar</h1>
         <table>
             <thead>
                 <tr>
@@ -12,6 +10,7 @@
                     <th>Time</th>
                     <th>Description</th>
                     <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,7 +19,17 @@
                         <td><%= appointment.appointmentDate ? appointment.appointmentDate.toLocaleDateString() : '' %></td>
                         <td><%= appointment.appointmentTime %></td>
                         <td><%= appointment.serviceType %></td>
-                        <td><%= appointment.status %></td>
+                        <td class="<%= appointment.status === 'Completed' ? 'text-green-500' : 'text-red-500' %>">
+                            <%= appointment.status %>
+                        </td>
+                        <td>
+                            <form action="/appointments/<%= appointment._id %>?_method=DELETE" method="POST">
+                                <button type="submit">Delete</button>
+                            </form>
+                            <form action="/appointments/<%= appointment._id %>/edit" method="GET">
+                                <button type="submit">Update</button>
+                            </form>
+                        </td>
                     </tr>
                 <% }) %>
             </tbody>
@@ -28,6 +37,6 @@
     </div>
 </body>
 
-
-
 <%- include('../partials/footer') %>
+
+

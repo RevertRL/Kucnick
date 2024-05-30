@@ -2,12 +2,13 @@ const express = require('express');
 const router = express.Router();
 const carCtrl = require('../controllers/appointments');
 
-router.post('/', carCtrl.createApp);
+router.get('/', carCtrl.index);
 router.get('/about', carCtrl.about);
-router.get('/', carCtrl.getAllApp);
-router.get('/new', carCtrl.renderNewAppointmentForm);
-router.get('/:id', carCtrl.getAppById);
-router.put('/:id', carCtrl.updateApp);
-router.delete('/:id', carCtrl.deleteApp);
+router.post('/', carCtrl.createApp); // POST to /appointments to create new
+router.get('/new', (req, res) => res.render('appointments/new')); // Render form to create new
+router.get('/:id', carCtrl.show);
+router.put('/:id/update', carCtrl.updateApp);
+router.post('/:id', carCtrl.deleteApp);
 
 module.exports = router;
+
